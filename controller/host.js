@@ -2,7 +2,6 @@ const Package = require("../models/booking-package");
 const Feedback = require("../models/feedback");
 const path = require('path');
 
-
 exports.postFeedback = (req,res,next) =>{
   console.log(req.body);
   const {name,email,phone,subject,message} = req.body;
