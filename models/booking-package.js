@@ -18,7 +18,6 @@ module.exports = class Package{
         console.log("File writing concluded", error);
       });
     });
-   
   }
 
   static fetchAll(callback){
