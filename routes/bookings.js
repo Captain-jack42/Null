@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { sendBookingConfirmation } = require('../util/emailService');
 
-// Create a new booking
+
 router.post('/api/bookings', async (req, res) => {
     try {
         const bookingData = req.body;
