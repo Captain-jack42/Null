@@ -12,6 +12,7 @@ exports.postFeedback = (req,res,next) =>{
 }
 
 exports.postBookedPackage=(req,res,next) =>{
+  
   const {service,duration,amount} = req.body;
   const package = new Package(service,duration,amount);
   package.save();
