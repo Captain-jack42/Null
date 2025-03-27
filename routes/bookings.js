@@ -17,7 +17,7 @@ router.post('/api/bookings', async (req, res) => {
             });
         }
         
-        // Send confirmation email
+       
         console.log('Attempting to send confirmation email to:', bookingData.email);
         const emailSent = await sendBookingConfirmation(bookingData);
         
