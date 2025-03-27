@@ -29,13 +29,7 @@ app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         
-        // Here you would typically:
-        // 1. Validate input
-        // 2. Check user exists
-        // 3. Verify password
-        // 4. Generate JWT token
         
-        // For now, we'll just send a success response
         res.json({ 
             success: true, 
             message: 'Login successful',
@@ -54,14 +48,7 @@ app.post('/login', async (req, res) => {
 app.post('/signup', async (req, res) => {
     try {
         const { name, email, phone, password } = req.body;
-        
-        // Here you would typically:
-        // 1. Validate input
-        // 2. Check if user already exists
-        // 3. Hash password
-        // 4. Create user in database
-        
-        // For now, we'll just send a success response
+       
         res.json({ 
             success: true, 
             message: 'Registration successful',
@@ -76,13 +63,11 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-// Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: 'Something went wrong!' });
 });
 
-// 404 handler
 app.use((req, res) => {
     res.status(404).json({ message: 'Route not found' });
 });
