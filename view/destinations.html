@@ -6,12 +6,93 @@
     <title>Destinations - Yatra</title>
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            border-radius: 8px;
+            position: relative;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+
+        #modalContent img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+        }
+
+        #modalContent p {
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        #modalContent a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        #modalContent a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
         <nav class="navbar">
             <div class="logo">
-                <h1><i class="fas fa-map"></i> Yatra <i class="fas fa-plane"></i></h1> 
+                <h1><i class="fas fa-map"></i> Yatra <i class="fas fa-plane"></i></h1>
             </div>
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
@@ -19,19 +100,58 @@
                 <li><a href="/packages">Packages</a></li>
                 <li><a href="/services">Services</a></li>
                 <li><a href="/contact">Contact</a></li>
+                <li id="authButtons">
+                    <a href="/login" class="login-btn">Login</a>
+                    <a href="/signup" class="signup-btn">Sign Up</a>
+                </li>
+                <li id="userProfile" style="display: none;">
+                    <div class="user-profile">
+                        <span id="userName">User</span>
+                        <button onclick="logout()" class="logout-btn">Logout</button>
+                    </div>
+                </li>
             </ul>
-            <div class="auth-buttons">
-                <button class="login-btn">Login</button>
-                <button class="signup-btn">Sign Up</button>
-            </div>
         </nav>
     </header>
 
     <main>
-        <section class="hero" style="height: 60vh;">
+        <section class="hero">
             <div class="hero-content">
-                <h1>Explore Amazing Destinations</h1>
-                <p>Discover the most beautiful places across India</p>
+                <video autoplay muted loop class="hero-video" style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    z-index: 1;
+                    filter: brightness(0.7);
+                ">
+                    <source src="/css/videos/video3.mp4" type="video/mp4">
+                </video>
+                <div class="hero-video-overlay" style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+                    z-index: 2;
+                "></div>
+                <div style="
+                    position: relative;
+                    z-index: 3;
+                    text-align: center;
+                    color: white;
+                    width: 100%;
+                ">
+                    <h1>Explore Amazing Destinations</h1>
+                    <p>Discover the most beautiful places across India</p>
+                    <form id="searchForm" class="search-box">
+                        <input type="text" id="searchInput" placeholder="Where do you want to go?" required>
+                        <button type="submit" class="search-btn">Search</button>
+                    </form>
+                </div>
             </div>
         </section>
 
@@ -42,7 +162,7 @@
                     <div class="card-content">
                         <h3>Goa</h3>
                         <p>Beautiful beaches, vibrant nightlife, and Portuguese architecture</p>
-                        <button class="explore-btn">View Details</button>
+                        <button class="explore-btn" onclick="showDestinationDetails('Goa')">View Details</button>
                     </div>
                 </div>
                 <div class="destination-card">
@@ -50,7 +170,7 @@
                     <div class="card-content">
                         <h3>Kerala</h3>
                         <p>Serene backwaters, lush greenery, and ayurvedic experiences</p>
-                        <button class="explore-btn">View Details</button>
+                        <button class="explore-btn" onclick="showDestinationDetails('Kerala')">View Details</button>
                     </div>
                 </div>
                 <div class="destination-card">
@@ -58,7 +178,7 @@
                     <div class="card-content">
                         <h3>Rajasthan</h3>
                         <p>Royal palaces, desert safaris, and rich cultural heritage</p>
-                        <button class="explore-btn">View Details</button>
+                        <button class="explore-btn" onclick="showDestinationDetails('Rajasthan')">View Details</button>
                     </div>
                 </div>
                 <div class="destination-card">
@@ -66,7 +186,7 @@
                     <div class="card-content">
                         <h3>Himalayas</h3>
                         <p>Snow-capped peaks, adventure sports, and spiritual retreats</p>
-                        <button class="explore-btn">View Details</button>
+                        <button class="explore-btn" onclick="showDestinationDetails('Himalayas')">View Details</button>
                     </div>
                 </div>
                 <div class="destination-card">
@@ -74,7 +194,7 @@
                     <div class="card-content">
                         <h3>Agra</h3>
                         <p>The iconic Taj Mahal and Mughal architecture</p>
-                        <button class="explore-btn">View Details</button>
+                        <button class="explore-btn" onclick="showDestinationDetails('Agra')">View Details</button>
                     </div>
                 </div>
                 <div class="destination-card">
@@ -82,12 +202,23 @@
                     <div class="card-content">
                         <h3>Varanasi</h3>
                         <p>Spiritual ghats, ancient temples, and cultural experiences</p>
-                        <button class="explore-btn">View Details</button>
+                        <button class="explore-btn" onclick="showDestinationDetails('Varanasi')">View Details</button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- Add Modal -->
+    <div id="destinationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div id="modalContent">
+                <div class="loading">Loading...</div>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="footer-content">
@@ -123,5 +254,43 @@
             <p>&copy; 2024 Yatra. All rights reserved.</p>
         </div>
     </footer>
+    <script src="/js/nav.js"></script>
+    <script>
+        function showDestinationDetails(destination) {
+            const modal = document.getElementById('destinationModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            
+            modal.style.display = 'block';
+            modalTitle.textContent = destination;
+            modalContent.innerHTML = '<div class="loading">Loading...</div>';
+
+            // Fetch Wikipedia content
+            fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${destination}`)
+                .then(response => response.json())
+                .then(data => {
+                    modalContent.innerHTML = `
+                        <img src="${data.thumbnail?.source || ''}" alt="${destination}">
+                        <p>${data.extract}</p>
+                        <a href="${data.content_urls.desktop.page}" target="_blank">Read more on Wikipedia</a>
+                    `;
+                })
+                .catch(error => {
+                    modalContent.innerHTML = '<p>Error loading content. Please try again later.</p>';
+                });
+        }
+
+        // Close modal when clicking the X or outside the modal
+        document.querySelector('.close-modal').onclick = function() {
+            document.getElementById('destinationModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('destinationModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
