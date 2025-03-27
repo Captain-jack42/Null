@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-// Pre-save middleware to update lastLogin
+
 userSchema.pre('save', function(next) {
     if (this.isNew) {
         this.lastLogin = new Date();
