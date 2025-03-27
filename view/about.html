@@ -11,7 +11,7 @@
     <header class="header">
         <nav class="navbar">
             <div class="logo">
-                <h1>Yatra</h1>
+                <h1><i class="fas fa-map"></i> Yatra <i class="fas fa-plane"></i></h1>
             </div>
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
@@ -19,11 +19,17 @@
                 <li><a href="/packages">Packages</a></li>
                 <li><a href="/services">Services</a></li>
                 <li><a href="/contact">Contact</a></li>
+                <li id="authButtons">
+                    <a href="/login" class="login-btn">Login</a>
+                    <a href="/signup" class="signup-btn">Sign Up</a>
+                </li>
+                <li id="userProfile" style="display: none;">
+                    <div class="user-profile">
+                        <span id="userName">User</span>
+                        <button onclick="logout()" class="logout-btn">Logout</button>
+                    </div>
+                </li>
             </ul>
-            <div class="auth-buttons">
-                <button class="login-btn">Login</button>
-                <button class="signup-btn">Sign Up</button>
-            </div>
         </nav>
     </header>
 
@@ -129,5 +135,6 @@
             <p>&copy; 2024 Yatra. All rights reserved.</p>
         </div>
     </footer>
+    <script src="/js/nav.js"></script>
 </body>
 </html> 
