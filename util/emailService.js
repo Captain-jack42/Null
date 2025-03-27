@@ -4,10 +4,10 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
-    secure: false, // true for 465, false for other ports like 587
+    secure: false, 
     auth: {
         user: 'RajanSingh8593@gmail.com',
-        pass: 'madv cxri ytuv etqu' // Replace this with your actual App Password
+        pass: 'madv cxri ytuv etqu' 
     }
 });
 
