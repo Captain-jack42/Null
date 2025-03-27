@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const rootDir = require('../util/pathUtil');
+// const rootDir = require('../util/pathUtil');
 const { error } = require('console');
 
 module.exports = class Package{
